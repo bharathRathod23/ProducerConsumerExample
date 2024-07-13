@@ -53,3 +53,98 @@ public class ProducerConsumerExample2 {
         }
     }
 }
+
+
+
+
+
+//import java.util.LinkedList;
+//import java.util.Queue;
+//
+//class Buffer {
+//    private final Queue<Integer> queue = new LinkedList<>();
+//    private final int capacity;
+//    private final Object lock = new Object();
+//
+//    public Buffer(int capacity) {
+//        this.capacity = capacity;
+//    }
+//
+//    public void produce(int value) throws InterruptedException {
+//        synchronized (lock) {
+//            while (queue.size() == capacity) {
+//                lock.wait();
+//            }
+//            queue.add(value);
+//            System.out.println("Produced: " + value);
+//            lock.notifyAll();
+//        }
+//    }
+//
+//    public int consume() throws InterruptedException {
+//        synchronized (lock) {
+//            while (queue.isEmpty()) {
+//                lock.wait();
+//            }
+//            int value = queue.poll();
+//            System.out.println("Consumed: " + value);
+//            lock.notifyAll();
+//            return value;
+//        }
+//    }
+//}
+//
+//class Producer extends Thread {
+//    private final Buffer buffer;
+//
+//    public Producer(Buffer buffer) {
+//        this.buffer = buffer;
+//    }
+//
+//    @Override
+//    public void run() {
+//        int value = 0;
+//        try {
+//            while (true) {
+//                buffer.produce(value++);
+//                Thread.sleep(100);
+//            }
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
+//    }
+//}
+//
+//class Consumer extends Thread {
+//    private final Buffer buffer;
+//
+//    public Consumer(Buffer buffer) {
+//        this.buffer = buffer;
+//    }
+//
+//    @Override
+//    public void run() {
+//        try {
+//            while (true) {
+//                buffer.consume();
+//                Thread.sleep(100);
+//            }
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
+//    }
+//}
+//
+//public class ProducerConsumerExample {
+//    public static void main(String[] args) {
+//        Buffer buffer = new Buffer(5);
+//
+//        Thread producerThread1 = new Producer(buffer);
+//        Thread producerThread2 = new Producer(buffer);
+//        Thread consumerThread = new Consumer(buffer);
+//
+//        producerThread1.start();
+//        producerThread2.start();
+//        consumerThread.start();
+//    }
+//}
